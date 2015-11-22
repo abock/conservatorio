@@ -178,7 +178,7 @@ namespace Conservatorio.Rdio
 			else if (vanityName != null)
 				parameters.Add ("vanityName", vanityName);
 
-			parameters.Add ("extras", RdioObject.GetExtraKeys<User> ());
+			parameters.Add ("extras", String.Join (",", RdioObject.GetExtraKeys<User> ()));
 
 			return await CallAsync<User> ("findUser", parameters);
 		}
@@ -222,7 +222,7 @@ namespace Conservatorio.Rdio
 		{
 			var result = (JObject)await CallAsync ("get", new Dictionary<string, string> {
 				["keys"] = String.Join (",", keys),
-				["extras"] = "trackKeys"
+				["extras"] = String.Join (",", RdioObject.GetExtraKeys ())
 			});
 
 			foreach (var property in result) {

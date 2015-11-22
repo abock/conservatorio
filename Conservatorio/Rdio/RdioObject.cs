@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
 
@@ -62,38 +63,54 @@ namespace Conservatorio.Rdio
 			["p"] = typeof(Playlist)
 		};
 
-		static readonly Dictionary<Type, string> extrasMap = new Dictionary<Type, string> ();
+		static readonly Dictionary<Type, List<string>> extrasMap = new Dictionary<Type, List<string>> ();
+		static HashSet<string> allExtras;
 
-		public static string GetExtraKeys (string objectKey)
+		public static IEnumerable<string> GetExtraKeys ()
 		{
-			Type clrType;
-			if (typeMap.TryGetValue (objectKey [0].ToString (), out clrType))
-				return GetExtraKeys (clrType);
-			return null;
+			lock (typeMap) {
+				if (allExtras != null)
+					return allExtras;
+				
+				allExtras = new HashSet<string> (typeMap.Values.SelectMany (GetExtraKeys));
+				return allExtras;
+			}
 		}
 
-		public static string GetExtraKeys<T> () where T : RdioObject
+		public static IEnumerable<string> GetExtraKeys (string objectKey)
+		{
+			lock (typeMap) {
+				Type clrType;
+				if (typeMap.TryGetValue (objectKey [0].ToString (), out clrType))
+					return GetExtraKeys (clrType);
+				return new string [0];
+			}
+		}
+
+		public static IEnumerable<string> GetExtraKeys<T> () where T : RdioObject
 		{
 			return GetExtraKeys (typeof(T));
 		}
 
-		public static string GetExtraKeys (Type type)
+		public static IEnumerable<string> GetExtraKeys (Type type)
 		{
-			string extrasString;
-			if (extrasMap.TryGetValue (type, out extrasString))
-				return extrasString;
+			lock (typeMap) {
+				List<string> extras;
+				if (extrasMap.TryGetValue (type, out extras))
+					return extras;
 			
-			var extras = new List<string> ();
+				extras = new List<string> ();
 
-			foreach (var prop in type.GetProperties ()) {
-				if (prop.GetCustomAttribute<IsExtraAttribute> () != null) {
-					var jsonProp = prop.GetCustomAttribute<JsonPropertyAttribute> ();
-					extras.Add (jsonProp.PropertyName);
+				foreach (var prop in type.GetProperties ()) {
+					if (prop.GetCustomAttribute<IsExtraAttribute> () != null) {
+						var jsonProp = prop.GetCustomAttribute<JsonPropertyAttribute> ();
+						extras.Add (jsonProp.PropertyName);
+					}
 				}
-			}
 
-			extrasMap.Add (type, extrasString = String.Join (",", extras));
-			return extrasString;
+				extrasMap.Add (type, extras);
+				return extras;
+			}
 		}
 
 		public static RdioObject FromJson (JToken json)
