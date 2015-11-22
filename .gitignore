@@ -24,6 +24,7 @@ install-sh
 autom4te.cache/
 *.user
 *.tar.gz
+*.zip
 tarballs/
 test-results/
 Thumbs.db
