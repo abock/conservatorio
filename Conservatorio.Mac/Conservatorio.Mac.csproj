@@ -84,4 +84,10 @@
   </ItemGroup>
   <Import Project="..\Conservatorio\Conservatorio.projitems" Label="Shared" Condition="Exists('..\Conservatorio\Conservatorio.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\AppIcon.icns" />
+  </ItemGroup>
 </Project>
