@@ -58,6 +58,9 @@ namespace Conservatorio.Rdio
 		[JsonProperty ("playCount"), IsExtra]
 		public int PlayCount { get; set; }
 
+		[JsonProperty ("isrcs"), IsExtra]
+		public string [] Isrcs { get; set; }
+
 		public override void AcceptVisitor (IRdioObjectKeyVisitor visitor)
 		{
 			base.AcceptVisitor (visitor);

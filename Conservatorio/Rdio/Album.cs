@@ -58,7 +58,7 @@ namespace Conservatorio.Rdio
 		public string ReleaseDateIso { get; set; }
 
 		[JsonProperty ("upcs"), IsExtra]
-		public string Upcs { get; set; }
+		public string [] Upcs { get; set; }
 
 		[JsonProperty ("bigIcon"), IsExtra]
 		public string BigIcon { get; set; }
