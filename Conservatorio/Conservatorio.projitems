@@ -35,6 +35,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ExportRoot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExportUser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BuildInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rdio\Label.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Rdio\ClientCredentials.json">

@@ -57,6 +57,7 @@ namespace Conservatorio.Rdio
 
 		static readonly Dictionary<string, Type> typeMap = new Dictionary<string, Type> {
 			["s"] = typeof(User),
+			["l"] = typeof(Label),
 			["r"] = typeof(Artist),
 			["a"] = typeof(Album),
 			["t"] = typeof(Track),

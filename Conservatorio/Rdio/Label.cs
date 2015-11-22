@@ -1,5 +1,5 @@
 ﻿//
-// Album.cs
+// Label.cs
 //
 // Author:
 //   Aaron Bockover <aaron.bockover@gmail.com>
@@ -25,55 +25,17 @@
 // THE SOFTWARE.
 
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Conservatorio.Rdio
 {
 	[JsonObject]
-	public sealed class Album : Source
+	public class Label : RdioObject
 	{
-		[JsonProperty ("trackKeys")]
-		public string [] TrackKeys { get; set; }
-
-		[JsonProperty ("displayDate")]
-		public string DisplayReleaseDate { get; set; }
-
-		[JsonProperty ("releaseDate")]
-		public string ReleaseDate { get; set; }
-
-		[JsonProperty ("label"), IsExtra]
-		[JsonConverter (typeof (RdioObject.JsonConverter))]
-		public Label Label { get; set; }
-
-		[JsonProperty ("hasListened"), IsExtra]
-		public bool HasListened { get; set; }
-
-		[JsonProperty ("isCompilation"), IsExtra]
-		public bool IsCompilation { get; set; }
-
-		[JsonProperty ("dominantColor"), IsExtra]
-		public JObject DominantColor { get; set; }
-
-		[JsonProperty ("releaseDateISO"), IsExtra]
-		public string ReleaseDateIso { get; set; }
-
-		[JsonProperty ("upcs"), IsExtra]
-		public string Upcs { get; set; }
-
-		[JsonProperty ("bigIcon"), IsExtra]
-		public string BigIcon { get; set; }
-
-		[JsonProperty ("iconKey"), IsExtra]
-		public string IconKey { get; set; }
+		[JsonProperty ("name")]
+		public string Name { get; set; }
 
 		public override void AcceptVisitor (IRdioObjectKeyVisitor visitor)
 		{
-			base.AcceptVisitor (visitor);
-
-			if (TrackKeys != null) {
-				foreach (var trackKey in TrackKeys)
-					visitor.VisitObjectKey (trackKey);
-			}
 		}
 	}
 }
