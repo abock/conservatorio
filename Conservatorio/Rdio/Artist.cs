@@ -24,9 +24,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+using Newtonsoft.Json;
+
 namespace Conservatorio.Rdio
 {
 	public class Artist : Source
 	{
+		[JsonProperty ("twitterName"), IsExtra]
+		public string TwitterName { get; set; }
 	}
 }
