@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{E0DF6C27-FF74-46F2-AE21-E88ABDF63EC8}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Conservatorio</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Rdio\Album.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rdio\Api.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rdio\Artist.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rdio\ClientCredentials.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rdio\IRdioObjectKeyVisitor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rdio\IsExtraAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rdio\Playlist.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rdio\RdioObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rdio\RdioObjectStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rdio\RdioUserKeyStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rdio\Source.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rdio\TokenEndpointException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rdio\TokenEndpointResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rdio\Track.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rdio\UnknownRdioObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rdio\User.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ItemsProcessor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)JsonExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UserNotFoundException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UserSyncController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SyncState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TimeSpanExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UserIsProtectedException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExportRoot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExportUser.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Rdio\ClientCredentials.json">
+      <LogicalName>Conservatorio.Rdio.ClientCredentials.json</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Rdio\" />
+  </ItemGroup>
+</Project>
