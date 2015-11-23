@@ -1,5 +1,5 @@
 ﻿//
-// SyncController.cs
+// UserSyncController.cs
 //
 // Author:
 //   Aaron Bockover <aaron.bockover@gmail.com>
@@ -25,14 +25,11 @@
 // THE SOFTWARE.
 
 using System;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-
-using Newtonsoft.Json;
 
 using Conservatorio.Rdio;
 
@@ -40,8 +37,7 @@ namespace Conservatorio
 {
 	public class UserSyncController : IRdioObjectKeyVisitor
 	{
-		readonly Api api = new Api ();
-
+		readonly Api api;
 		ItemsProcessor<string> keysProcessor;
 
 		public string UserIdentifier { get; }
@@ -66,7 +62,15 @@ namespace Conservatorio
 		}
 
 		public UserSyncController (string userIdentifier, RdioObjectStore sharedObjectStore)
+			: this (new Api (), userIdentifier, sharedObjectStore)
 		{
+		}
+
+		public UserSyncController (Api api, string userIdentifier, RdioObjectStore sharedObjectStore)
+		{
+			if (api == null)
+				throw new ArgumentNullException (nameof (api));
+
 			if (String.IsNullOrEmpty (userIdentifier))
 				throw new ArgumentException ("must not be null or empty",
 					nameof (userIdentifier));
@@ -77,6 +81,7 @@ namespace Conservatorio
 			UserIdentifier = userIdentifier;
 			ObjectStore = sharedObjectStore;
 
+			this.api = api;
 			api.CancellationToken = CancellationToken;
 		}
 

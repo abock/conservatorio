@@ -38,6 +38,7 @@ namespace Conservatorio
 {
 	public class ConsoleApp
 	{
+		Api api;
 		string outputDir;
 		readonly List<RdioUserKeyStore> userKeyStores = new List<RdioUserKeyStore> ();
 		RdioObjectStore sharedObjectStore;
@@ -45,6 +46,7 @@ namespace Conservatorio
 		public int Main (IEnumerable<string> args)
 		{
 			var showHelp = false;
+			var following = false;
 			outputDir = Environment.CurrentDirectory;
 
 			var optionSet = new OptionSet {
@@ -65,6 +67,10 @@ namespace Conservatorio
 					"when fetching data for multiple users, use a single shared object " +
 					"store and persist all users in the same output file",
 					v => sharedObjectStore = new RdioObjectStore () },
+				{ "f|following",
+					"also back up the data of all users a specified user is " +
+					"following (non recursive)",
+					v => following = true },
 				{ "h|help", "show this help", v => showHelp = true }
 			};
 
@@ -80,8 +86,10 @@ namespace Conservatorio
 				return 1;
 			}
 
+			api = new Api ();
+
 			foreach (var user in users)
-				SyncUser (user).Wait ();
+				SyncUser (user, following).Wait ();
 
 			if (sharedObjectStore != null && userKeyStores.Count > 0) {
 				var path = Path.Combine (outputDir, "Conservatorio_RdioExport.json");
@@ -114,10 +122,10 @@ namespace Conservatorio
 			Console.Write ("{0:0.0}% ({1} / {2}) ", progress * 100, current, total);
 		}
 
-		public async Task SyncUser (string userId)
+		public async Task SyncUser (string userId, bool syncFollowing)
 		{
 			var startTime = DateTime.UtcNow;
-			var syncController = new UserSyncController (userId,
+			var syncController = new UserSyncController (api, userId,
 				sharedObjectStore ?? new RdioObjectStore ());
 
 			do {
@@ -182,6 +190,12 @@ namespace Conservatorio
 					break;
 				}
 			} while (syncController.SyncState != SyncState.Finished);
+
+			if (syncFollowing) {
+				var user = syncController.UserKeyStore.User;
+				foreach (var followingKey in api.GetUserFollowingAsync (user).Result)
+					SyncUser (followingKey, false).Wait ();
+			}
 		}
 	}
 }
