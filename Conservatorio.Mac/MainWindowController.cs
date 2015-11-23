@@ -136,7 +136,7 @@ namespace Conservatorio.Mac
 						statusTextField.StringValue = "connection error";
 					else if (e is UserNotFoundException)
 						statusTextField.StringValue = "could not find Rdio user "
-							+ syncController.EmailAddressOrVanityName;
+							+ syncController.UserIdentifier;
 					else if (e is OperationCanceledException)
 						statusTextField.StringValue = "canceled";
 					else
@@ -153,7 +153,7 @@ namespace Conservatorio.Mac
 					break;
 				case SyncState.FindingUser:
 					statusTextField.StringValue = "searching for "
-						+ syncController.EmailAddressOrVanityName + "…";
+						+ syncController.UserIdentifier + "…";
 					break;
 				case SyncState.FoundUser:
 					break;

@@ -30,6 +30,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 using Newtonsoft.Json;
 
@@ -43,7 +44,7 @@ namespace Conservatorio
 
 		ItemsProcessor<string> keysProcessor;
 
-		public string EmailAddressOrVanityName { get; }
+		public string UserIdentifier { get; }
 		public RdioObjectStore ObjectStore { get; }
 		public RdioUserKeyStore UserKeyStore { get; private set; }
 
@@ -58,22 +59,22 @@ namespace Conservatorio
 
 		public string FileName {
 			get {
-				return EmailAddressOrVanityName == null
+				return UserIdentifier == null
 					? "UnknownRdioUser.json"
-					: String.Format ("RdioExport_{0}.json", EmailAddressOrVanityName);
+					: String.Format ("RdioExport_{0}.json", UserIdentifier);
 			}
 		}
 
-		public UserSyncController (string emailAddressOrVanityName, RdioObjectStore sharedObjectStore)
+		public UserSyncController (string userIdentifier, RdioObjectStore sharedObjectStore)
 		{
-			if (String.IsNullOrEmpty (emailAddressOrVanityName))
+			if (String.IsNullOrEmpty (userIdentifier))
 				throw new ArgumentException ("must not be null or empty",
-					nameof (emailAddressOrVanityName));
+					nameof (userIdentifier));
 
 			if (sharedObjectStore == null)
 				throw new ArgumentNullException (nameof (sharedObjectStore));
 
-			EmailAddressOrVanityName = emailAddressOrVanityName;
+			UserIdentifier = userIdentifier;
 			ObjectStore = sharedObjectStore;
 
 			api.CancellationToken = CancellationToken;
@@ -132,19 +133,34 @@ namespace Conservatorio
 			return SyncState;
 		}
 
+		static readonly Regex userKeyRegex = new Regex (@"^s\d+$");
+
 		async Task<User> FindUserAsync ()
 		{
+			string key = null;
 			string email = null;
 			string vanityName = null;
 
-			if (EmailAddressOrVanityName.IndexOf ('@') > 0)
-				email = EmailAddressOrVanityName;
+			if (userKeyRegex.IsMatch (UserIdentifier))
+				key = UserIdentifier;
+			else if (UserIdentifier.IndexOf ('@') > 0)
+				email = UserIdentifier;
 			else
-				vanityName = EmailAddressOrVanityName;
+				vanityName = UserIdentifier;
 
-			var user = await api.FindUserAsync (email, vanityName);
-			if (user == null)
-				throw new UserNotFoundException (EmailAddressOrVanityName);
+			User user = null;
+
+			if (key != null) {
+				user = await api.GetObjectAsync<User> (key);
+				if (user == null)
+					vanityName = key;
+			}
+
+			if (user == null) {
+				user = await api.FindUserAsync (email, vanityName);
+				if (user == null)
+					throw new UserNotFoundException (UserIdentifier);
+			}
 
 			if (user.IsProtected)
 				throw new UserIsProtectedException (user);
