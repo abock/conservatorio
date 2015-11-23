@@ -21,15 +21,21 @@ BUILD_INFO_FILES = \
 	Conservatorio/BuildInfo.cs \
 	Conservatorio.Mac/Info.plist
 
-all: mac console
+all: nuget mac console
 
 release:
 	$(MAKE) clean
 	$(MAKE) update-build-info
 	$(MAKE) all
 
-console:
+nuget:
+	nuget restore
+
+console: conservatorio.exe
+
+conservatorio.exe: $(CONSOLE_BIN)/conservatorio.exe
 	xbuild Conservatorio.Console/Conservatorio.Console.csproj /target:Build /property:Configuration=$(CONSOLE_CONFIGURATION)
+	cp $< $@
 
 mac: Conservatorio.zip
 
