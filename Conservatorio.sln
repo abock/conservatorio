@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conservatorio.Mac", "Conser
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Conservatorio", "Conservatorio\Conservatorio.shproj", "{E0DF6C27-FF74-46F2-AE21-E88ABDF63EC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conservatorio.Console", "Conservatorio.Console\Conservatorio.Console.csproj", "{A8EB4736-8C57-42B2-B89D-22DC48BC8305}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -15,6 +17,10 @@ Global
 		{499F26C4-48EE-41C3-A67F-2FB0313873DC}.Debug|x86.Build.0 = Debug|Any CPU
 		{499F26C4-48EE-41C3-A67F-2FB0313873DC}.Release|x86.ActiveCfg = Release|Any CPU
 		{499F26C4-48EE-41C3-A67F-2FB0313873DC}.Release|x86.Build.0 = Release|Any CPU
+		{A8EB4736-8C57-42B2-B89D-22DC48BC8305}.Debug|x86.ActiveCfg = Debug|x86
+		{A8EB4736-8C57-42B2-B89D-22DC48BC8305}.Debug|x86.Build.0 = Debug|x86
+		{A8EB4736-8C57-42B2-B89D-22DC48BC8305}.Release|x86.ActiveCfg = Release|x86
+		{A8EB4736-8C57-42B2-B89D-22DC48BC8305}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

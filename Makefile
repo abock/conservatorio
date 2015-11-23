@@ -1,6 +1,8 @@
 CONFIGURATION = Release
 MAC_CONFIGURATION = $(CONFIGURATION)
 MAC_BIN = Conservatorio.Mac/bin/$(MAC_CONFIGURATION)
+CONSOLE_CONFIGURATION = $(CONFIGURATION)
+CONSOLE_BIN = Conservatorio.Console/bin/$(CONSOLE_CONFIGURATION)
 
 COMMIT_DISTANCE = $(shell LANG=C; export LANG && git log `git blame VERSION | sed 's/ .*//' `..HEAD --oneline | wc -l | sed 's/ //g')
 PACKAGE_HEAD_REV = $(shell git rev-parse HEAD)
@@ -19,12 +21,15 @@ BUILD_INFO_FILES = \
 	Conservatorio/BuildInfo.cs \
 	Conservatorio.Mac/Info.plist
 
-all: mac
+all: mac console
 
 release:
 	$(MAKE) clean
 	$(MAKE) update-build-info
-	$(MAKE) mac
+	$(MAKE) all
+
+console:
+	xbuild Conservatorio.Console/Conservatorio.Console.csproj /target:Build /property:Configuration=$(CONSOLE_CONFIGURATION)
 
 mac: Conservatorio.zip
 
@@ -38,6 +43,7 @@ $(MAC_BIN)/Conservatorio.app:
 	xbuild Conservatorio.Mac/Conservatorio.Mac.csproj /target:Build /property:Configuration=$(MAC_CONFIGURATION)
 
 clean:
+	rm -rf packages
 	rm -rf Conservatorio.zip
 	rm -rf Conservatorio.Mac/{bin,obj}
 
