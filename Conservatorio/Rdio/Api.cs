@@ -251,8 +251,12 @@ namespace Conservatorio.Rdio
 		{
 			foreach (var property in await CoreGetObjectsAsync (keys)) {
 				var obj = RdioObject.FromJson (property.Value);
-				targetStore.Add (obj);
-				objectLoaded?.Invoke (obj);
+				if (obj != null) {
+					targetStore.Add (obj);
+					objectLoaded?.Invoke (obj);
+				} else {
+					Console.WriteLine ("Couldn't add {0}", property.Value);
+				}
 			}
 		}
 
