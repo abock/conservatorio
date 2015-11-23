@@ -21,33 +21,50 @@ BUILD_INFO_FILES = \
 	Conservatorio/BuildInfo.cs \
 	Conservatorio.Mac/Info.plist
 
+.PHONY: all
 all: nuget mac console
 
+.PHONY: release
 release:
 	$(MAKE) clean
 	$(MAKE) update-build-info
 	$(MAKE) all
 
+.PHONY: nuget
 nuget:
 	nuget restore
 
-console: conservatorio.exe
+.PHONY: console
+console: bin/conservatorio
 
-conservatorio.exe: $(CONSOLE_BIN)/conservatorio.exe
+.PHONY: bin/conservatorio.exe
+bin/conservatorio.exe: $(CONSOLE_BIN)/conservatorio.exe
+	mkdir -p bin
 	xbuild Conservatorio.Console/Conservatorio.Console.csproj /target:Build /property:Configuration=$(CONSOLE_CONFIGURATION)
 	cp $< $@
 
-mac: Conservatorio.zip
+bin/conservatorio: bin/conservatorio.exe
+	AS='as -arch i386' \
+		CC='clang -v -arch i386 -framework Foundation -liconv -mmacosx-version-min=10.10' \
+		PKG_CONFIG_PATH='/Library/Frameworks/Mono.framework/Versions/Current/lib/pkgconfig' \
+		mkbundle --static -o $@ $+
 
-Conservatorio.zip: $(MAC_BIN)/Conservatorio.zip
+.PHONY: mac
+mac: bin/Conservatorio.zip
+
+bin/Conservatorio.zip: $(MAC_BIN)/Conservatorio.zip
+	mkdir -p bin
 	cp $< $@
 
+.PHONY: $(MAC_BIN)/Conservatorio.zip
 $(MAC_BIN)/Conservatorio.zip: $(MAC_BIN)/Conservatorio.app
 	cd $(MAC_BIN) && zip -9r $(notdir $@) $(notdir $<)
 
+.PHONY: $(MAC_BIN)/Conservatorio.app
 $(MAC_BIN)/Conservatorio.app:
 	xbuild Conservatorio.Mac/Conservatorio.Mac.csproj /target:Build /property:Configuration=$(MAC_CONFIGURATION)
 
+.PHONY: clean
 clean:
 	rm -rf packages
 	rm -rf Conservatorio.zip
