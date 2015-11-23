@@ -49,6 +49,12 @@ namespace Conservatorio
 			var following = false;
 			outputDir = Environment.CurrentDirectory;
 
+			Console.WriteLine ("Conservatorio v{0} ({1}/{2}, {3})",
+				BuildInfo.Version, BuildInfo.Branch, BuildInfo.Hash, BuildInfo.Date);
+			Console.WriteLine ("  by Aaron Bockover (@abock)");
+			Console.WriteLine ("  http://conservator.io");
+			Console.WriteLine ();
+
 			var optionSet = new OptionSet {
 				"Usage: conservatorio [OPTIONS]+ USER [USER...]",
 				"",
