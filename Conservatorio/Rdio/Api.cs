@@ -203,7 +203,6 @@ namespace Conservatorio.Rdio
 		public async Task LoadUserPlaylists (string kind, RdioUserKeyStore targetUserStore)
 		{
 			int offset = 0;
-			var keys = new List<string> ();
 
 			while (true) {
 				var result = await CallAsync ("getUserPlaylists", new Dictionary<string, string> {
