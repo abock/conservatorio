@@ -49,9 +49,6 @@ namespace Conservatorio.Rdio
 		[JsonProperty ("trackNum")]
 		public int TrackNumber { get; set; }
 
-		[JsonProperty ("isInCollection"), IsExtra]
-		public bool IsInCollection { get; set; }
-
 		[JsonProperty ("isOnCompilation"), IsExtra]
 		public bool IsOnCompilation { get; set; }
 

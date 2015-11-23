@@ -45,9 +45,6 @@ namespace Conservatorio.Rdio
 		[JsonConverter (typeof (RdioObject.JsonConverter))]
 		public Label Label { get; set; }
 
-		[JsonProperty ("hasListened"), IsExtra]
-		public bool HasListened { get; set; }
-
 		[JsonProperty ("isCompilation"), IsExtra]
 		public bool IsCompilation { get; set; }
 
