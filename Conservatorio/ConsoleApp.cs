@@ -38,12 +38,14 @@ namespace Conservatorio
 {
 	public class ConsoleApp
 	{
-		string outputPath;
+		string outputDir;
+		readonly List<RdioUserKeyStore> userKeyStores = new List<RdioUserKeyStore> ();
+		RdioObjectStore sharedObjectStore;
 
 		public int Main (IEnumerable<string> args)
 		{
 			var showHelp = false;
-			outputPath = Environment.CurrentDirectory;
+			outputDir = Environment.CurrentDirectory;
 
 			var optionSet = new OptionSet {
 				"Usage: conservatorio [OPTIONS]+ USER [USER...]",
@@ -58,7 +60,11 @@ namespace Conservatorio
 				{ "o|output-dir=",
 					"output all JSON data to files in {DIR} directory," +
 					"defaulting to the current working directory",
-					v => outputPath = v },
+					v => outputDir = v },
+				{ "s|single-store",
+					"when fetching data for multiple users, use a single shared object " +
+					"store and persist all users in the same output file",
+					v => sharedObjectStore = new RdioObjectStore () },
 				{ "h|help", "show this help", v => showHelp = true }
 			};
 
@@ -69,8 +75,24 @@ namespace Conservatorio
 				return 1;
 			}
 
+			if (!Directory.Exists (outputDir)) {
+				Console.Error.WriteLine ("error: output directory does not exist: {0}", outputDir);
+				return 1;
+			}
+
 			foreach (var user in users)
 				SyncUser (user).Wait ();
+
+			if (sharedObjectStore != null && userKeyStores.Count > 0) {
+				var path = Path.Combine (outputDir, "Conservatorio_RdioExport.json");
+				Console.WriteLine ("Exporting data for {0} users ({1} total objects) to {2}...",
+					userKeyStores.Count, sharedObjectStore.Count, path);
+				new Exporter {
+					ObjectStore = sharedObjectStore,
+					UserKeyStores = userKeyStores
+				}.Export (path);
+				Console.WriteLine ("Done!");
+			}
 
 			return 0;
 		}
@@ -95,7 +117,8 @@ namespace Conservatorio
 		public async Task SyncUser (string userId)
 		{
 			var startTime = DateTime.UtcNow;
-			var syncController = new UserSyncController (userId, new RdioObjectStore ());
+			var syncController = new UserSyncController (userId,
+				sharedObjectStore ?? new RdioObjectStore ());
 
 			do {
 				try {
@@ -145,10 +168,16 @@ namespace Conservatorio
 						syncController.TotalObjects);
 					break;
 				case SyncState.Finished:
-					Console.WriteLine ("  * Fetched in {0}", (DateTime.UtcNow - startTime).ToFriendlyString ());
-					var path = Path.Combine (outputPath, syncController.FileName);
-					Console.WriteLine ("  * Exporting to {0}...", path);
-					syncController.Export (path);
+					Console.WriteLine ("  * Fetched in {0}",
+						(DateTime.UtcNow - startTime).ToFriendlyString ());
+
+					if (sharedObjectStore == null) {
+						var path = Path.Combine (outputDir, syncController.FileName);
+						Console.WriteLine ("  * Exporting to {0}...", path);
+						syncController.CreateExporter ().Export (path);
+					} else
+						userKeyStores.Add (syncController.UserKeyStore);
+
 					Console.WriteLine ("  * Done!");
 					break;
 				}

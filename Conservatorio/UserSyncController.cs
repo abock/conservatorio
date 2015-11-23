@@ -61,7 +61,7 @@ namespace Conservatorio
 			get {
 				return UserIdentifier == null
 					? "UnknownRdioUser.json"
-					: String.Format ("RdioExport_{0}.json", UserIdentifier);
+					: String.Format ("Conservatorio_RdioExport_{0}.json", UserIdentifier);
 			}
 		}
 
@@ -185,41 +185,12 @@ namespace Conservatorio
 				keysProcessor.Add (objectKey);
 		}
 
-		public void Export (string path)
+		public Exporter CreateExporter ()
 		{
-			using (var stream = new FileStream (path, FileMode.Create, FileAccess.Write))
-				Export (stream);
-		}
-
-		public void Export (Stream stream)
-		{
-			Export (new StreamWriter (stream));
-		}
-
-		public void Export (TextWriter writer)
-		{
-			new JsonSerializer {
-				NullValueHandling = NullValueHandling.Include,
-				DefaultValueHandling = DefaultValueHandling.Include,
-				Formatting = Formatting.Indented
-			}.Serialize (writer, new ExportRoot {
-				Users = new List<ExportUser> {
-					new ExportUser {
-						UserKey = UserKeyStore.User.Key,
-						SyncedKeys = UserKeyStore.SyncedKeys.ToArray (),
-						FavoritesKeys = UserKeyStore.FavoritesKeys.ToArray (),
-						PlaylistsKeys = UserKeyStore.PlaylistsKeys
-					}
-				},
-				Objects = ObjectStore.Export ()
-			});
-
-			writer.Flush ();
-		}
-
-		public async Task ExportAsync (string path)
-		{
-			await Task.Run (() => Export (path));
+			return new Exporter {
+				ObjectStore = ObjectStore,
+				UserKeyStores = new [] { UserKeyStore }
+			};
 		}
 	}
 }

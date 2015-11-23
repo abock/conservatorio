@@ -220,7 +220,7 @@ namespace Conservatorio.Mac
 				actionButton.Enabled = false;
 				indeterminateProgressIndicator.Hidden = false;
 
-				await syncController.ExportAsync (url.FilePathUrl.Path);
+				await syncController.CreateExporter ().ExportAsync (url.FilePathUrl.Path);
 
 				statusTextField.StringValue = "saved your tedious music curation work!";
 				actionButton.Enabled = true;

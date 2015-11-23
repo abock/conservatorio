@@ -38,6 +38,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Rdio\Label.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConsoleApp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mono.Options\Options.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exporter.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Rdio\ClientCredentials.json">
