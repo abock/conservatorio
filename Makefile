@@ -66,6 +66,7 @@ $(MAC_BIN)/Conservatorio.app:
 
 .PHONY: clean
 clean:
+	rm -rf bin
 	rm -rf packages
 	rm -rf Conservatorio.zip
 	rm -rf Conservatorio.Mac/{bin,obj}
