@@ -202,20 +202,26 @@ namespace Conservatorio.Rdio
 
 		public async Task LoadUserPlaylists (string kind, RdioUserKeyStore targetUserStore)
 		{
-			// FIXME: this is an old API that returns objects instead of just
-			// a list of keys (to be passed to 'get'); thus it requires pagination.
-			// be lame for now and just set a playlist maximum :(
-			var result = await CallAsync ("getUserPlaylists",
-				new Dictionary<string, string> {
+			int offset = 0;
+			var keys = new List<string> ();
+
+			while (true) {
+				var result = await CallAsync ("getUserPlaylists", new Dictionary<string, string> {
 					["user"] = targetUserStore.User.Key,
 					["kind"] = kind,
-					["count"] = "250",
+					["start"] = offset.ToString (),
 					["extras"] = "-*,key"
-				}
-			) as JArray;
+				}) as JArray;
 
-			if (result != null)
-				targetUserStore.AddPlaylists (kind, result.Select (p => p ["key"].Value<string> ()));
+				if (result?.Count == 0)
+					break;
+
+				offset += result.Count;
+
+				if (result != null)
+					targetUserStore.AddPlaylists (kind,
+						result.Select (p => p ["key"].Value<string> ()));
+			}
 		}
 
 		async Task<JObject> CoreGetObjectsAsync (IEnumerable<string> keys)
