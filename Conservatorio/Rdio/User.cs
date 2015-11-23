@@ -81,7 +81,7 @@ namespace Conservatorio.Rdio
 
 		[JsonProperty ("lastSourcePlayed"), IsExtra]
 		[JsonConverter (typeof (RdioObject.JsonConverter))]
-		public Source LastSourcePlayed { get; set; }
+		public RdioObject LastSourcePlayed { get; set; }
 
 		[JsonProperty ("lastSongPlayTime"), IsExtra]
 		public string LastSongPlayTime { get; set; }

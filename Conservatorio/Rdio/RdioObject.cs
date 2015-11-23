@@ -119,6 +119,22 @@ namespace Conservatorio.Rdio
 			string jsonType;
 			try {
 				jsonType = json ["type"].Value<string> ();
+				// always ignore radio stations
+				switch (jsonType) {
+				case "ar": // album station
+				case "rr": // artist station
+				case "tr": // artist top songs station
+				case "ap": // autoplay station
+				case "gr": // genre station
+				case "h":  // heavy rotation station
+				case "e":  // heavy rotation user station
+				case "lr": // label station
+				case "pr": // playlist station
+				case "sr": // song station
+				case "tp": // taste profile station
+				case "c":  // user collection station
+					return null;
+				}
 			} catch {
 				return null;
 			}
