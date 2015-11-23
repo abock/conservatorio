@@ -44,8 +44,8 @@ bin/conservatorio.exe: $(CONSOLE_BIN)/conservatorio.exe
 	cp $< $@
 
 bin/conservatorio: bin/conservatorio.exe
-	AS='as -arch i386' \
-		CC='clang -v -arch i386 -framework Foundation -liconv -mmacosx-version-min=10.10' \
+	AS='as -arch i386 -mmacosx-version-min=10.9' \
+		CC='clang -v -arch i386 -framework Foundation -liconv -mmacosx-version-min=10.9' \
 		PKG_CONFIG_PATH='/Library/Frameworks/Mono.framework/Versions/Current/lib/pkgconfig' \
 		mkbundle --static -o $@ $+
 
