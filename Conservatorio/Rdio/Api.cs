@@ -209,7 +209,8 @@ namespace Conservatorio.Rdio
 				new Dictionary<string, string> {
 					["user"] = targetUserStore.User.Key,
 					["kind"] = kind,
-					["count"] = "250"
+					["count"] = "250",
+					["extras"] = "-*,key"
 				}
 			) as JArray;
 
@@ -217,18 +218,65 @@ namespace Conservatorio.Rdio
 				targetUserStore.AddPlaylists (kind, result.Select (p => p ["key"].Value<string> ()));
 		}
 
-		public async Task LoadObjectsAsync (RdioObjectStore targetStore, IEnumerable<string> keys,
-			Action<RdioObject> objectLoaded = null)
+		async Task<JObject> CoreGetObjectsAsync (IEnumerable<string> keys)
 		{
-			var result = (JObject)await CallAsync ("get", new Dictionary<string, string> {
+			return (JObject)await CallAsync ("get", new Dictionary<string, string> {
 				["keys"] = String.Join (",", keys),
 				["extras"] = String.Join (",", RdioObject.GetExtraKeys ())
 			});
+		}
 
-			foreach (var property in result) {
+		public async Task<T> GetObjectAsync<T> (string key) where T : RdioObject
+		{;
+			foreach (var property in await CoreGetObjectsAsync (new [] { key }))
+				return RdioObject.FromJson (property.Value) as T;
+			return null;
+		}
+
+		public async Task<IEnumerable<RdioObject>> GetObjectsAsync (IEnumerable<string> keys)
+		{
+			var objects = new List<RdioObject> ();
+			foreach (var property in await CoreGetObjectsAsync (keys))
+				objects.Add (RdioObject.FromJson (property.Value));
+			return objects;
+		}
+
+		public async Task LoadObjectsAsync (RdioObjectStore targetStore, IEnumerable<string> keys,
+			Action<RdioObject> objectLoaded = null)
+		{
+			foreach (var property in await CoreGetObjectsAsync (keys)) {
 				var obj = RdioObject.FromJson (property.Value);
 				targetStore.Add (obj);
 				objectLoaded?.Invoke (obj);
+			}
+		}
+
+		public Task<IReadOnlyList<string>> GetUserFollowingAsync (User user)
+		{
+			return GetUserFollowingAsync (user.Key);
+		}
+
+		public async Task<IReadOnlyList<string>> GetUserFollowingAsync (string userKey)
+		{
+			int offset = 0;
+			var keys = new List<string> ();
+
+			while (true) {
+				var result = await CallAsync ("userFollowing", new Dictionary<string, string> {
+					["user"] = userKey,
+					["sort"] = "recent",
+					["start"] = offset.ToString (),
+					["count"] = "100",
+					["extras"] = "-*,key"
+				}) as JArray;
+
+				if (result?.Count == 0)
+					return keys;
+
+				offset += result.Count;
+
+				foreach (var key in result)
+					keys.Add (key ["key"].Value<string> ());
 			}
 		}
 	}
