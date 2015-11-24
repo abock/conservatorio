@@ -47,7 +47,7 @@ bin/conservatorio: bin/conservatorio.exe
 	AS='as -arch i386 -mmacosx-version-min=10.9' \
 		CC='clang -v -arch i386 -framework Foundation -liconv -mmacosx-version-min=10.9' \
 		PKG_CONFIG_PATH='/Library/Frameworks/Mono.framework/Versions/Current/lib/pkgconfig' \
-		mkbundle --static -o $@ $+
+		mkbundle --deps --static -o $@ $+
 
 .PHONY: mac
 mac: bin/Conservatorio.zip
