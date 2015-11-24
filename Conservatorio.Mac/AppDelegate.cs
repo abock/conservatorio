@@ -31,16 +31,19 @@ namespace Conservatorio.Mac
 {
 	public partial class AppDelegate : NSApplicationDelegate
 	{
-		MainWindowController mainWindowController;
-
-		public AppDelegate ()
-		{
-		}
-
 		public override void DidFinishLaunching (NSNotification notification)
 		{
-			mainWindowController = new MainWindowController ();
-			mainWindowController.Window.MakeKeyAndOrderFront (this);
+			NewHandler (this);
+		}
+
+		partial void NewHandler (NSObject sender)
+		{
+			new MainWindowController ().Window.MakeKeyAndOrderFront (this);
+		}
+
+		partial void ProjectPageHandler (NSObject sender)
+		{
+			NSWorkspace.SharedWorkspace.OpenUrl (new NSUrl ("http://conservator.io"));
 		}
 	}
 }
