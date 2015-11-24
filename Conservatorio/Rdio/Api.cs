@@ -254,8 +254,6 @@ namespace Conservatorio.Rdio
 				if (obj != null) {
 					targetStore.Add (obj);
 					objectLoaded?.Invoke (obj);
-				} else {
-					Console.WriteLine ("Couldn't add {0}", property.Value);
 				}
 			}
 		}
