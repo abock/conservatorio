@@ -30,6 +30,7 @@
     <EnableCodeSigning>false</EnableCodeSigning>
     <EnablePackageSigning>false</EnablePackageSigning>
     <XamMacArch>x86_64</XamMacArch>
+    <PackageSigningKey>Developer ID Installer</PackageSigningKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -44,10 +45,10 @@
     <UseSGen>true</UseSGen>
     <IncludeMonoRuntime>true</IncludeMonoRuntime>
     <CreatePackage>true</CreatePackage>
-    <CodeSigningKey>Mac Developer: aaron.bockover@gmail.com (R9PE56WZEG)</CodeSigningKey>
+    <CodeSigningKey>Developer ID Application: Aaron Bockover (MK744WTX5R)</CodeSigningKey>
     <EnableCodeSigning>true</EnableCodeSigning>
-    <EnablePackageSigning>false</EnablePackageSigning>
-    <PackageSigningKey>Developer ID Installer</PackageSigningKey>
+    <EnablePackageSigning>true</EnablePackageSigning>
+    <PackageSigningKey>Developer ID Installer: Aaron Bockover (MK744WTX5R)</PackageSigningKey>
     <XamMacArch>x86_64</XamMacArch>
   </PropertyGroup>
   <ItemGroup>
