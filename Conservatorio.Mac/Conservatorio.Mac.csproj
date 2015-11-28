@@ -9,15 +9,15 @@
     <RootNamespace>Conservatorio.Mac</RootNamespace>
     <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
     <AssemblyName>Conservatorio</AssemblyName>
-    <TargetFrameworkIdentifier>Xamarin.Mac</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkIdentifier>Xamarin.Mac</TargetFrameworkIdentifier>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
+    <DefineConstants>DEBUG;UNIFIED</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -50,6 +50,7 @@
     <EnablePackageSigning>true</EnablePackageSigning>
     <PackageSigningKey>Developer ID Installer: Aaron Bockover (MK744WTX5R)</PackageSigningKey>
     <XamMacArch>x86_64</XamMacArch>
+    <DefineConstants>UNIFIED</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -77,6 +78,30 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="AppDelegate.designer.cs">
       <DependentUpon>AppDelegate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\external\ModernHttpClient\src\ModernHttpClient\iOS\AsyncLock.cs">
+      <Link>ModernHttpClient\AsyncLock.cs</Link>
+    </Compile>
+    <Compile Include="..\external\ModernHttpClient\src\ModernHttpClient\iOS\CFNetworkErrors.cs">
+      <Link>ModernHttpClient\CFNetworkErrors.cs</Link>
+    </Compile>
+    <Compile Include="..\external\ModernHttpClient\src\ModernHttpClient\iOS\NativeCookieHandler.cs">
+      <Link>ModernHttpClient\NativeCookieHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\external\ModernHttpClient\src\ModernHttpClient\iOS\NSErrorExtended.cs">
+      <Link>ModernHttpClient\NSErrorExtended.cs</Link>
+    </Compile>
+    <Compile Include="..\external\ModernHttpClient\src\ModernHttpClient\iOS\NSUrlSessionHandler.cs">
+      <Link>ModernHttpClient\NSUrlSessionHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\external\ModernHttpClient\src\ModernHttpClient\ProgressStreamContent.cs">
+      <Link>ModernHttpClient\ProgressStreamContent.cs</Link>
+    </Compile>
+    <Compile Include="..\external\ModernHttpClient\src\ModernHttpClient\CaptiveNetworkException.cs">
+      <Link>ModernHttpClient\CaptiveNetworkException.cs</Link>
+    </Compile>
+    <Compile Include="..\external\ModernHttpClient\src\ModernHttpClient\Utility.cs">
+      <Link>ModernHttpClient\Utility.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
