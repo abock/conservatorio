@@ -25,22 +25,32 @@
 // THE SOFTWARE.
 
 using System.IO;
+using System.Threading;
 
+using Foundation;
 using AppKit;
 
 namespace Conservatorio.Mac
 {
 	static class MainClass
 	{
-		static void Main (string[] args)
+		static int Main (string[] args)
 		{
 			NSApplication.Init ();
 
-			var sparkleFx = Path.Combine (Foundation.NSBundle.MainBundle.BundlePath,
+			if (args.Length > 0) {
+				// the init above will set this thread's sync context to
+				// integrate with NSRunLoop, which we do not want
+				SynchronizationContext.SetSynchronizationContext (null);
+				return new ConsoleApp ().Main (args);
+			}
+
+			var sparkleFx = Path.Combine (NSBundle.MainBundle.BundlePath,
 				"Contents", "Frameworks", "Sparkle.framework", "Sparkle");
 			ObjCRuntime.Dlfcn.dlopen (sparkleFx, 0);
 
-			NSApplication.Main (args);
+			NSApplication.Main (new string[0]);
+			return 0;
 		}
 	}
 }
