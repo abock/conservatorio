@@ -30,10 +30,10 @@ namespace Conservatorio
 {
     static class BuildInfo
     {
-		public const string VersionString = "1.4";
+		public const string VersionString = "0.0.0.0";
 		public static readonly Version Version = new Version (VersionString);
-		public const string Hash = "723a578";
-		public const string Branch = "master";
-		public const string Date = "Sat Nov 28 20:13:56 UTC 2015";
+		public const string Hash = "@PACKAGE_HEAD_REV_SHORT@";
+		public const string Branch = "@PACKAGE_HEAD_BRANCH@";
+		public const string Date = "@PACKAGE_BUILD_DATE@";
     }
 }
