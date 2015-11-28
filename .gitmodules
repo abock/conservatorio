@@ -1,6 +1,3 @@
-[submodule "external/ModernHttpClient"]
-	path = external/ModernHttpClient
-	url = https://github.com/paulcbetts/ModernHttpClient
 [submodule "external/Sparkle"]
 	path = external/Sparkle
 	url = https://github.com/sparkle-project/Sparkle
