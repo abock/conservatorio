@@ -55,9 +55,10 @@ namespace Conservatorio
 
 		public string FileName {
 			get {
-				return UserIdentifier == null
+				return UserKeyStore == null || UserKeyStore.User == null
 					? "UnknownRdioUser.json"
-					: String.Format ("Conservatorio_RdioExport_{0}.json", UserIdentifier);
+					: String.Format ("Conservatorio_RdioExport_{0}.json",
+						UserKeyStore.User.VanityName ?? UserKeyStore.User.DisplayName);
 			}
 		}
 
