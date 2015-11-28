@@ -24,7 +24,10 @@ release:
 	$(MAKE) clean
 	$(MAKE) update-build-info
 	$(MAKE) all
-	test -f dsa_priv.pem && ./update-appcast dsa_priv.pem appcast.xml bin/Conservatorio.zip
+
+.PHONY: update-appcast
+update-appcast:
+	@test -f dsa_priv.pem && ./update-appcast dsa_priv.pem appcast.xml.in bin/Conservatorio.zip $(PACKAGE_VERSION)
 
 .PHONY: nuget
 nuget:

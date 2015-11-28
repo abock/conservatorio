@@ -1,7 +1,38 @@
 #!/usr/bin/env bash
 
+set -e
+
 PRIVKEY=$1
 APPCAST=$2
 ENCLOSURE=$3
+VERSION=$4
 
+function usage {
+	if [[ ! -z "$1" ]]; then
+		if [[ "$1" == "version" ]]; then
+			echo "error: version must be specified" 1>&2
+		else
+			echo "error: $1 file does not exist or was not specified" 1>&2
+		fi
+		echo 1>&2
+	fi
 
+	echo "usage: $0 DSA_PRIV_KEY_FILE APP_CAST_FILE ENCLOSURE_FILE" 1>&2
+	exit 1
+}
+
+if [[ ! -f "$PRIVKEY" ]]; then
+	usage "private key"
+elif [[ ! -f "$APPCAST" ]]; then
+	usage "appcast"
+elif [[ ! -f "$ENCLOSURE" ]]; then
+	usage "enclosure"
+elif [[ -z "$VERSION" ]]; then
+	usage "version"
+fi
+
+DSA_SIGNATURE="$(external/Sparkle/bin/sign_update "$ENCLOSURE" "$PRIVKEY")"
+PUBDATE="$(date -u +'%a, %d %b %Y %T %z')"
+ENCLOSURE_SIZE="$(stat -f '%z' "$ENCLOSURE")"
+
+sed < "$APPCAST" "s/@VERSION@/${VERSION}/g; s|@DSA_SIGNATURE@|${DSA_SIGNATURE}|g; s/@PUBDATE@/${PUBDATE}/g; s/@ENCLOSURE_SIZE@/${ENCLOSURE_SIZE}/g"

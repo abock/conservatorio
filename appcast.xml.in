@@ -6,13 +6,13 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
       <item>
-        <title>Version 1.2</title>
+        <title>Version @VERSION@</title>
         <description>
           <![CDATA[
           ]]>
         </description>
         <pubDate>@PUB_DATE@</pubDate>
-        <enclosure url="https://github.com/abock/conservatorio/releases/download/1.2/Conservatorio.zip" sparkle:version="1.2" length="17023469" type="application/octet-stream" sparkle:dsaSignature="MCwCFDsMaFZFo9zTavMFFOTa2kXXHbqKAhRAPSC2RWXElud4cmNWwrWUpP/Tzg==" />
+        <enclosure url="https://github.com/abock/conservatorio/releases/download/@VERSION@/Conservatorio.zip" sparkle:version="@VERSION@" length="@ENCLOSURE_SIZE@" type="application/octet-stream" sparkle:dsaSignature="@DSA_SIGNATURE@" />
       </item>
   </channel>
 </rss>
