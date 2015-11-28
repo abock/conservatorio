@@ -26,6 +26,7 @@
 
 using System;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 using Foundation;
@@ -132,8 +133,10 @@ namespace Conservatorio.Mac
 					actionButton.Title = "Go Back";
 
 					var webException = e as WebException;
-					if (webException != null)
-						statusTextField.StringValue = "connection error";
+					var httpException = e as HttpRequestException;
+					if (webException != null || httpException != null)
+						statusTextField.StringValue = "connection error. rdio has probably " +
+							"gone offline forever. RIP in Peace \ud83d\ude22";
 					else if (e is UserNotFoundException)
 						statusTextField.StringValue = "could not find Rdio user "
 							+ syncController.UserIdentifier;
