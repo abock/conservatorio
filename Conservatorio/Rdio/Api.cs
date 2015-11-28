@@ -45,11 +45,15 @@ namespace Conservatorio.Rdio
 
 		static HttpClient CreateHttp ()
 		{
-			return new HttpClient (
-				#if UNIFIED
-				new ModernHttpClient.NativeMessageHandler ()
-				#endif
-			) {
+			#if UNIFIED
+			var handler = new ModernHttpClient.NativeMessageHandler ();
+			#else
+			var handler = new HttpClientHandler ();
+			#endif
+
+			handler.AllowAutoRedirect = false;
+
+			return new HttpClient (handler) {
 				BaseAddress = baseAddress,
 				Timeout = TimeSpan.FromSeconds (30)
 			};
