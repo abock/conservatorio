@@ -60,6 +60,9 @@
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
+    <Reference Include="Sparkle">
+      <HintPath>..\Sparkle\Sparkle.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -112,8 +115,16 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="ModernHttpClient\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\AppIcon.icns" />
+    <BundleResource Include="Resources\dsa_pub.pem" />
   </ItemGroup>
+  <Target Name="BeforeBuild">
+    <Exec Command="make -C &quot;$(MSBuildProjectDirectory)\..\Sparkle&quot; bind" />
+  </Target>
+  <Target Name="AfterBuild">
+    <Exec Command="make -C &quot;$(MSBuildProjectDirectory)\..&quot; sparkle MAC_CONFIGURATION=$(Configuration)" />
+  </Target>
 </Project>

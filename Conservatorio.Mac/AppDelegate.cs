@@ -31,6 +31,8 @@ namespace Conservatorio.Mac
 {
 	public partial class AppDelegate : NSApplicationDelegate
 	{
+		readonly Sparkle.SUUpdater suupdater = new Sparkle.SUUpdater ();
+
 		public override void DidFinishLaunching (NSNotification notification)
 		{
 			NewHandler (this);

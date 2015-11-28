@@ -23,6 +23,9 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+
+using System.IO;
+
 using AppKit;
 
 namespace Conservatorio.Mac
@@ -32,6 +35,11 @@ namespace Conservatorio.Mac
 		static void Main (string[] args)
 		{
 			NSApplication.Init ();
+
+			var sparkleFx = Path.Combine (Foundation.NSBundle.MainBundle.BundlePath,
+				"Contents", "Frameworks", "Sparkle.framework", "Sparkle");
+			ObjCRuntime.Dlfcn.dlopen (sparkleFx, 0);
+
 			NSApplication.Main (args);
 		}
 	}

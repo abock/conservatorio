@@ -59,6 +59,13 @@ $(MAC_BIN)/Conservatorio.zip: $(MAC_BIN)/Conservatorio.app
 $(MAC_BIN)/Conservatorio.app:
 	xbuild Conservatorio.Mac/Conservatorio.Mac.csproj /target:Build /property:Configuration=$(MAC_CONFIGURATION)
 
+.PHONY: sparkle
+sparkle:
+	make -C external/Sparkle build
+	rm -rf $(MAC_BIN)/Conservatorio.app/Contents/Frameworks/Sparkle.framework
+	mkdir -p $(MAC_BIN)/Conservatorio.app/Contents/Frameworks
+	cp -a external/Sparkle/build/Release/Sparkle.framework $(MAC_BIN)/Conservatorio.app/Contents/Frameworks
+
 .PHONY: clean
 clean:
 	rm -rf bin
