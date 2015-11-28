@@ -11,12 +11,12 @@
           <![CDATA[
             <p><a href="http://conservator.io">Visit the Conservatorio Web Site for more details!</a></p>
 
-            <h1>Version 1.5</h1>
+            <h4>Version 1.5</h4>
             <ul>
               <li>Fixed a caching issue on Mac</li>
             </ul>
 
-            <h2>Version 1.4</h2>
+            <h4>Version 1.4</h4>
             <ul>
               <li>Improved console app support for Mac (fixes <a href="https://github.com/abock/conservatorio/issues/4" class="issue-link" title="NullReferenceException in Mac console app">#4</a>)</li>
               <li>Improved connection failure error handling
@@ -27,14 +27,14 @@
               <li>Add a <code>-verbose</code> option to the console app</li>
             </ul>
 
-            <h3>Version 1.3</h3>
+            <h4>Version 1.3</h4>
             <ul>
               <li>Syncing is now 2-3x faster!</li>
               <li>Full user objects are now persisted instead of just the toplevel user key</li>
               <li>Conservatorio can now update itself and will check for updates on every launch</li>
             </ul>
 
-            <h3>Version 1.2</h3>
+            <h4>Version 1.2</h4>
             <ul>
               <li>Properly code sign the Mac application
               <li>Fix a crash with some collections
