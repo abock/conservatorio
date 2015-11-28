@@ -12,6 +12,9 @@ namespace Conservatorio.Mac
 	[Register ("AppDelegate")]
 	partial class AppDelegate
 	{
+		[Action ("CheckForUpdatesHandler:")]
+		partial void CheckForUpdatesHandler (Foundation.NSObject sender);
+
 		[Action ("NewHandler:")]
 		partial void NewHandler (Foundation.NSObject sender);
 

@@ -31,13 +31,19 @@ namespace Conservatorio.Mac
 {
 	public partial class AppDelegate : NSApplicationDelegate
 	{
-		#pragma warning disable 0414
 		readonly Sparkle.SUUpdater suupdater = new Sparkle.SUUpdater ();
-		#pragma warning restore 0414
 
 		public override void DidFinishLaunching (NSNotification notification)
 		{
+			suupdater.AutomaticallyChecksForUpdates = true;
+			suupdater.CheckForUpdatesInBackground ();
+
 			NewHandler (this);
+		}
+
+		partial void CheckForUpdatesHandler (NSObject sender)
+		{
+			suupdater.CheckForUpdates (sender);
 		}
 
 		partial void NewHandler (NSObject sender)
