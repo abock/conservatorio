@@ -47,7 +47,7 @@ bin/Conservatorio.zip: $(MAC_BIN)/Conservatorio.zip
 
 .PHONY: $(MAC_BIN)/Conservatorio.zip
 $(MAC_BIN)/Conservatorio.zip: $(MAC_BIN)/Conservatorio.app
-	cd $(MAC_BIN) && zip -9r $(notdir $@) $(notdir $<)
+	cd $(MAC_BIN) && ditto -c -k --sequesterRsrc --keepParent $(notdir $<) $(notdir $@)
 
 .PHONY: $(MAC_BIN)/Conservatorio.app
 $(MAC_BIN)/Conservatorio.app:
