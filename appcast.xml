@@ -9,6 +9,7 @@
         <title>Version 1.4</title>
         <description>
           <![CDATA[
+            <p><a href="http://conservator.io">Visit the Conservatorio Web Site for more details!</a></p>
             <ul>
               <li>Improved console app support for Mac (fixes <a href="https://github.com/abock/conservatorio/issues/4" class="issue-link" title="NullReferenceException in Mac console app">#4</a>)</li>
               <li>Improved connection failure error handling
