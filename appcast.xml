@@ -9,6 +9,11 @@
         <title>Version 1.3</title>
         <description>
           <![CDATA[
+            <ul>
+              <li>Syncing is now 2-3x faster!</li>
+              <li>Full user objects are now persisted instead of just the toplevel user key.</li>
+              <li>Conservatorio can now update itself and will check for updates on every launch.</li>
+            </ul>
           ]]>
         </description>
         <pubDate>Sat, 28 Nov 2015 16:51:46 +0000</pubDate>
