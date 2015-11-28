@@ -9,5 +9,12 @@ bootstrap:
 	sharpie bind -f ../external/Sparkle/build/Release/Sparkle.framework -n Sparkle
 
 .PHONY: bind
-bind:
-	$(BMAC) -out:Sparkle.dll -api:ApiDefinitions.cs StructsAndEnums.cs --unified-mobile-profile --outdir:build -x:Constants.cs
+bind: Sparkle.dll
+
+Sparkle.dll: ApiDefinitions.cs StructsAndEnums.cs Constants.cs
+	$(BMAC) -out:$@ -api:ApiDefinitions.cs StructsAndEnums.cs --unified-mobile-profile --outdir:build -x:Constants.cs
+
+.PHONY: clean
+clean:
+	rm -f Sparkle.dll Sparkle.dll.mdb
+	rm -rf build
