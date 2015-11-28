@@ -31,6 +31,7 @@
     <EnablePackageSigning>false</EnablePackageSigning>
     <XamMacArch>x86_64</XamMacArch>
     <PackageSigningKey>Developer ID Installer</PackageSigningKey>
+    <MonoBundlingExtraArgs>--link_flags="-force_load xminit.a"</MonoBundlingExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -51,6 +52,7 @@
     <PackageSigningKey>Developer ID Installer: Aaron Bockover (MK744WTX5R)</PackageSigningKey>
     <XamMacArch>x86_64</XamMacArch>
     <DefineConstants>UNIFIED</DefineConstants>
+    <MonoBundlingExtraArgs>--link_flags="-force_load xminit.a"</MonoBundlingExtraArgs>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -123,6 +125,7 @@
   </ItemGroup>
   <Target Name="Bootstrap">
     <Exec Command="make -C &quot;$(MSBuildProjectDirectory)\..\Sparkle&quot; bind" />
+	<Exec Command="make -C &quot;$(MSBuildProjectDirectory)&quot;" />
   </Target>
   <Target Name="CustomizeAppBundle" AfterTargets="_CreateAppBundle">
     <Exec Command="make -C &quot;$(MSBuildProjectDirectory)\..&quot; sparkle MAC_CONFIGURATION=$(Configuration)" />

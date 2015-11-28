@@ -70,6 +70,7 @@ clean:
 	rm -rf packages
 	rm -rf Conservatorio.zip
 	rm -rf Conservatorio.Mac/{bin,obj}
+	$(MAKE) -C Conservatorio.Mac clean
 	$(MAKE) -C Sparkle clean
 	cd external/Sparkle && xcodebuild clean
 	rm -rf external/Sparkle/build

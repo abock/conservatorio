@@ -26,6 +26,7 @@
 
 using System.IO;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 using Foundation;
 using AppKit;
@@ -34,11 +35,20 @@ namespace Conservatorio.Mac
 {
 	static class MainClass
 	{
+		[DllImport ("__Internal")]
+		static extern string conservatorio_get_original_cwd ();
+
 		static int Main (string[] args)
 		{
 			NSApplication.Init ();
 
 			if (args.Length > 0) {
+				// the XM launcher code for whatever reason changes into
+				// the NSBundle.MainBundle.ResourcePath directory...
+				// we install a launcher hook (xamarin_app_initialize)
+				// to preserve the original CWD so we can change back to it
+				Directory.SetCurrentDirectory (conservatorio_get_original_cwd ());
+
 				// the init above will set this thread's sync context to
 				// integrate with NSRunLoop, which we do not want
 				SynchronizationContext.SetSynchronizationContext (null);
