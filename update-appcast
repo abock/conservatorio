@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+PRIVKEY=$1
+APPCAST=$2
+ENCLOSURE=$3
+
+

@@ -24,6 +24,7 @@ release:
 	$(MAKE) clean
 	$(MAKE) update-build-info
 	$(MAKE) all
+	test -f dsa_priv.pem && ./update-appcast dsa_priv.pem appcast.xml bin/Conservatorio.zip
 
 .PHONY: nuget
 nuget:
