@@ -55,7 +55,7 @@ $(MAC_BIN)/Conservatorio.app:
 
 .PHONY: sparkle
 sparkle:
-	make -C external/Sparkle build
+	cd external/Sparkle && xcodebuild build
 	rm -rf $(MAC_BIN)/Conservatorio.app/Contents/Frameworks/Sparkle.framework
 	mkdir -p $(MAC_BIN)/Conservatorio.app/Contents/Frameworks
 	cp -a external/Sparkle/build/Release/Sparkle.framework $(MAC_BIN)/Conservatorio.app/Contents/Frameworks
