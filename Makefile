@@ -1,4 +1,4 @@
-CONFIGURATION = Release
+CONFIGURATION = Debug
 MAC_CONFIGURATION = $(CONFIGURATION)
 MAC_BIN = Conservatorio.Mac/bin/$(MAC_CONFIGURATION)
 CONSOLE_CONFIGURATION = $(CONFIGURATION)
@@ -23,7 +23,7 @@ all: nuget mac console
 release:
 	$(MAKE) clean
 	$(MAKE) update-build-info
-	$(MAKE) all
+	$(MAKE) all MAC_CONFIGURATION=Release
 
 .PHONY: update-appcast
 update-appcast:

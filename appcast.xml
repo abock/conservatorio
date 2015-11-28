@@ -11,7 +11,7 @@
           <![CDATA[
           ]]>
         </description>
-        <pubDate>@PUB_DATE@</pubDate>
+        <pubDate>Sat, 28 Nov 2015 16:51:46 +0000</pubDate>
         <enclosure url="https://github.com/abock/conservatorio/releases/download/v1.3/Conservatorio.zip" sparkle:version="1.3" length="5016645" type="application/octet-stream" sparkle:dsaSignature="MC0CFDYNnrt+brahWdF/PZBZnwXZN7xYAhUA5NQxfno3JVtRmHwqXYpTgvCAbDg=" />
       </item>
   </channel>
