@@ -13,11 +13,10 @@
     <section class="page-header">
       <h1 class="project-name">Conservatorio</h1>
       <h2 class="project-tagline">Safely export your tediously curated and loved favorites and playlists from Rdio.</h2>
-      <a href="https://github.com/abock/conservatorio/releases/download/v1.2/Conservatorio.zip" class="btn">Download Mac GUI App</a>
-      <a href="https://github.com/abock/conservatorio/releases/download/v1.2/conservatorio" class="btn">Download Mac Console App</a>
-      <a href="https://github.com/abock/conservatorio/releases/download/v1.2/conservatorio.exe" class="btn">Download Linux/Windows Console App</a>
+      <a href="https://github.com/abock/conservatorio/releases/download/v1.4/Conservatorio.zip" class="btn">Download Mac App</a>
+      <a href="https://github.com/abock/conservatorio/releases/download/v1.4/conservatorio.exe" class="btn">Download Linux/Windows Console App</a>
       <a href="https://github.com/abock/conservatorio" class="btn">View on GitHub</a>
-      <p>Version 1.2<br />November 23, 2015</p>
+      <p>Version 1.4<br />November 28, 2015</p>
     </section>
     <section class="main-content">
       <p>On November 16, 2015, <a href="http://blog.rdio.com/us/2015/11/important-news-from-rdio.html">it was announced that Rdio would be shutting down for good</a>.</p>
@@ -35,8 +34,14 @@
       <p>Requires Mac OS X 10.10 or newer.</p>
 
       <h3>Console App</h3>
-      <p>Conservatorio is also available as a console application for both Mac and Windows. The console application supports fetching multiple users and users that a user is following. This is useful for automatically backing up your friends' collections too.</p>
+      <p>Conservatorio is also available as a console application for Mac, Windows, and Linux. The console application supports fetching multiple users and users that a user is following. This is useful for automatically backing up your friends' collections too.</p>
       <p style="text-align: center"><img src="Console.png" /></p>
+      <p>Mac users should download the regular Mac App, and from a terminal run (where your current working directory is where you downloaded Conservatorio):<br />
+        <pre><code>Conservatorio.app/Contents/MacOS/Conservatorio ${RDIO_USERNAME}|--help</code></pre>
+      </p>
+      <p>Windows and Linux users should download the &quot;Linux/Windows Console App&quot;. Windows users should be able to run conservatorio.exe from a command prompt, and Linux users should do the same, via Mono:
+        <pre><code>mono conservatorio.exe ${RDIO_USERNAME}|--help</code></pre>
+      </p>
 
       <h3>FAQ</h3>
       <h4>Backing up!</h4>
@@ -67,8 +72,8 @@
       </blockquote>
 
       <h4>Something isn't working!</h4>
-	  <blockquote>
-	    <p>File a <a href="https://github.com/abock/conservatorio/issues">GitHub issue</a> with the username/email address of the Rdio account you're trying to export and I'll try to take a look at it!</p>
+    <blockquote>
+      <p>File a <a href="https://github.com/abock/conservatorio/issues">GitHub issue</a> with the username/email address of the Rdio account you're trying to export and I'll try to take a look at it!</p>
       </blockquote>
 
       <h4>Will there be a mobile app?</h4>
