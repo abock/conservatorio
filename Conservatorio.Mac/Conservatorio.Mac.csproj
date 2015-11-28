@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project InitialTargets="Bootstrap" DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -121,7 +121,7 @@
     <BundleResource Include="Resources\AppIcon.icns" />
     <BundleResource Include="Resources\dsa_pub.pem" />
   </ItemGroup>
-  <Target Name="BeforeBuild">
+  <Target Name="Bootstrap">
     <Exec Command="make -C &quot;$(MSBuildProjectDirectory)\..\Sparkle&quot; bind" />
   </Target>
   <Target Name="AfterBuild">
