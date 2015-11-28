@@ -12,7 +12,7 @@
           ]]>
         </description>
         <pubDate>@PUB_DATE@</pubDate>
-        <enclosure url="https://github.com/abock/conservatorio/releases/download/1.2/Conservatorio.zip" sparkle:version="1.2" length="17023469" type="application/octet-stream" sparkle:dsaSignature="MCwCFDsMaFZFo9zTavMFFOTa2kXXHbqKAhRAPSC2RWXElud4cmNWwrWUpP/Tzg==" />
+        <enclosure url="https://github.com/abock/conservatorio/releases/download/v1.2/Conservatorio.zip" sparkle:version="1.2" length="17023469" type="application/octet-stream" sparkle:dsaSignature="MCwCFDsMaFZFo9zTavMFFOTa2kXXHbqKAhRAPSC2RWXElud4cmNWwrWUpP/Tzg==" />
       </item>
   </channel>
 </rss>
