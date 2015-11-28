@@ -124,10 +124,11 @@
   <Target Name="Bootstrap">
     <Exec Command="make -C &quot;$(MSBuildProjectDirectory)\..\Sparkle&quot; bind" />
   </Target>
-  <Target Name="AfterBuild">
+  <Target Name="CustomizeAppBundle" AfterTargets="_CreateAppBundle">
     <Exec Command="make -C &quot;$(MSBuildProjectDirectory)\..&quot; sparkle MAC_CONFIGURATION=$(Configuration)" />
+    <Exec Command="touch &quot;$(AppBundleDir)/Contents/MonoBundle/machine.config&quot;" />
   </Target>
   <Target Name="CodesignSparkleFramework" BeforeTargets="_CodesignAppBundle">
-	<Exec Command="codesign -v --force --sign &quot;$(CodeSigningKey)&quot; $(AppBundleDir)/Contents/Frameworks/Sparkle.framework"/>
+    <Exec Command="codesign -v --force --sign &quot;$(CodeSigningKey)&quot; &quot;$(AppBundleDir)/Contents/Frameworks/Sparkle.framework&quot;" />
   </Target>
 </Project>
