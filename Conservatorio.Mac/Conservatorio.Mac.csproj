@@ -127,4 +127,7 @@
   <Target Name="AfterBuild">
     <Exec Command="make -C &quot;$(MSBuildProjectDirectory)\..&quot; sparkle MAC_CONFIGURATION=$(Configuration)" />
   </Target>
+  <Target Name="CodesignSparkleFramework" BeforeTargets="_CodesignAppBundle">
+	<Exec Command="codesign -v --force --sign &quot;$(CodeSigningKey)&quot; $(AppBundleDir)/Contents/Frameworks/Sparkle.framework"/>
+  </Target>
 </Project>
