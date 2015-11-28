@@ -6,6 +6,24 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
       <item>
+        <title>Version 1.4</title>
+        <description>
+          <![CDATA[
+            <ul>
+              <li>Improved console app support for Mac (fixes <a href="https://github.com/abock/conservatorio/issues/4" class="issue-link" title="NullReferenceException in Mac console app">#4</a>)</li>
+              <li>Improved connection failure error handling
+                <ul>
+                  <li>for when Rdio finally goes offline <img class="emoji" title=":cry:" alt=":cry:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f622.png" height="20" width="20" align="absmiddle"> </li>
+                </ul>
+              </li>
+              <li>Add a <code>-verbose</code> option to the console app</li>
+            </ul>
+          ]]>
+        </description>
+        <pubDate>Sat, 28 Nov 2015 20:17:32 +0000</pubDate>
+        <enclosure url="https://github.com/abock/conservatorio/releases/download/v1.4/Conservatorio.zip" sparkle:version="1.4" length="5017923" type="application/octet-stream" sparkle:dsaSignature="MC4CFQCxK1FGp8wEDYRHL4pDqiWxxG+l/QIVAND3niWNYq7JVmY4/+T66jK18YTf" />
+      </item>
+      <item>
         <title>Version 1.3</title>
         <description>
           <![CDATA[
