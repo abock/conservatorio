@@ -97,7 +97,9 @@ namespace Conservatorio
 				SyncState = SyncState.FindingUser;
 				break;
 			case SyncState.FindingUser:
-				UserKeyStore = new RdioUserKeyStore (await FindUserAsync ());
+				var user = await FindUserAsync ();
+				UserKeyStore = new RdioUserKeyStore (user);
+				ObjectStore.Add (user);
 				SyncState = SyncState.FoundUser;
 				break;
 			case SyncState.FoundUser:
