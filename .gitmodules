@@ -1,3 +1,6 @@
 [submodule "external/Sparkle"]
 	path = external/Sparkle
 	url = https://github.com/sparkle-project/Sparkle
+[submodule "external/ModernHttpClient"]
+	path = external/ModernHttpClient
+	url = https://github.com/abock/ModernHttpClient.git
