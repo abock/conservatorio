@@ -46,7 +46,9 @@ namespace Conservatorio.Rdio
 		static HttpClient CreateHttp ()
 		{
 			#if UNIFIED
-			var handler = new ModernHttpClient.NativeMessageHandler ();
+			var handler = new ModernHttpClient.NativeMessageHandler {
+				DisableCaching = true
+			};
 			#else
 			var handler = new HttpClientHandler ();
 			#endif
