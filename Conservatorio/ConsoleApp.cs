@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 using Mono.Options;
@@ -40,6 +41,7 @@ namespace Conservatorio
 	{
 		Api api;
 		string outputDir;
+		bool verbose;
 		readonly List<RdioUserKeyStore> userKeyStores = new List<RdioUserKeyStore> ();
 		RdioObjectStore sharedObjectStore;
 
@@ -77,6 +79,9 @@ namespace Conservatorio
 					"also back up the data of all users a specified user is " +
 					"following (non recursive)",
 					v => following = true },
+				{ "v|verbose",
+					"be more verbose, particularly by showing exception stacktraces on error",
+					v => verbose = true },
 				{ "h|help", "show this help", v => showHelp = true }
 			};
 
@@ -140,9 +145,12 @@ namespace Conservatorio
 						syncController.SyncedObjects, syncController.TotalObjects));
 				} catch (Exception e) {
 					var webException = e as WebException;
-					if (webException != null)
+					var httpRequestException = e as HttpRequestException;
+					if (webException != null || httpRequestException != null) {
 						Console.WriteLine ("  ! Connection Error");
-					else if (e is UserNotFoundException)
+						if (verbose)
+							Console.Error.WriteLine (e);	
+					} else if (e is UserNotFoundException)
 						Console.WriteLine ("  ! Could not find Rdio user {0}",
 							syncController.UserIdentifier);
 					else if (e is OperationCanceledException)
