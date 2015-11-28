@@ -66,5 +66,13 @@
 	<string>https://raw.githubusercontent.com/abock/conservatorio/master/appcast.xml</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
+	<key>SUScheduledCheckInterval</key>
+	<integer>10800</integer>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUEnableSystemProfiling</key>
+	<true/>
+	<key>SUShowReleaseNotes</key>
+	<true/>
 </dict>
 </plist>
