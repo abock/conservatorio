@@ -43,8 +43,8 @@
             </ul>
           ]]>
         </description>
-        <pubDate>Sat, 28 Nov 2015 22:23:45 +0000</pubDate>
-        <enclosure url="https://github.com/abock/conservatorio/releases/download/v1.5/Conservatorio.zip" sparkle:version="1.5" length="5018127" type="application/octet-stream" sparkle:dsaSignature="MC4CFQDbQFb+h1yIv4y3kCVvq2Vrbg633AIVALjDcX0K4+AuI3GjH9i+nMKbqxyT" />
+        <pubDate>Sat, 28 Nov 2015 22:39:27 +0000</pubDate>
+        <enclosure url="https://github.com/abock/conservatorio/releases/download/v1.5/Conservatorio.zip" sparkle:version="1.5" length="5018671" type="application/octet-stream" sparkle:dsaSignature="MC4CFQDCiY4jw9USBJ0M5ux4aK5xEMAXwwIVAJWW9YaN0mwqHYPAJSJztHZ0P9Im" />
       </item>
       <item>
         <title>Version 1.4</title>
